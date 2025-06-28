@@ -1,4 +1,4 @@
-const items = require("../mocks/items.json")
+const { getItems, getItem } = require('../controllers/items.js')
 
 const itemsOptions = {
   schema: {
@@ -16,20 +16,14 @@ const itemsOptions = {
     }
   },
   // the callback can be set in handler of the options as well
-  handler: (req, reply) => {
-    reply.send(items)
-  }
+  handler: getItems
 }
 
 function itemRoutes(fastify, options, done) {
 
   fastify.get('/items', itemsOptions)
 
-  fastify.get('/item/:id', (req, reply) => {
-    const { id } = req.params
-    const item = items.find(item => item.id === Number(id))
-    reply.send(item)
-  })
+  fastify.get('/item/:id', getItem)
 
   done()
 }
