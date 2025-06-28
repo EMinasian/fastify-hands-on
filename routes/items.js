@@ -1,8 +1,25 @@
 const items = require("../mocks/items.json")
 
+const itemsOptions = {
+  schema: {
+    response: {
+      200: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            id: { type: 'number' },
+            name: { type: 'string' }
+          }
+        }
+      }
+    }
+  }
+}
+
 function itemRoutes(fastify, options, done) {
 
-  fastify.get('/items', (req, reply) => {
+  fastify.get('/items', itemsOptions, (req, reply) => {
     reply.send(items)
   })
 
