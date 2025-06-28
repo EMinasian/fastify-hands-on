@@ -1,19 +1,11 @@
 const fastify = require("fastify")({logger: true})
-const items = require("./mocks/items.json")
+const itemRoutes = require('./routes/items')
+const healthgRoutes = require('./routes/health')
 
-fastify.get('/health', (req, reply) => { 
-  reply.send('Hello World!')
-})
 
-fastify.get('/items', (req, reply) => {
-  reply.send(items)
-})
-
-fastify.get('/item/:id', (req, reply) => {
-  const { id } = req.params
-  const item = items.find(item => item.id === Number(id))
-  reply.send(item)
-})
+//We can register routes as plugins
+fastify.register(healthgRoutes)
+fastify.register(itemRoutes)
 
 const start = async() => {
   fastify.listen({ port: 5000 }, (err) => {
