@@ -14,14 +14,16 @@ const itemsOptions = {
         }
       }
     }
+  },
+  // the callback can be set in handler of the options as well
+  handler: (req, reply) => {
+    reply.send(items)
   }
 }
 
 function itemRoutes(fastify, options, done) {
 
-  fastify.get('/items', itemsOptions, (req, reply) => {
-    reply.send(items)
-  })
+  fastify.get('/items', itemsOptions)
 
   fastify.get('/item/:id', (req, reply) => {
     const { id } = req.params
