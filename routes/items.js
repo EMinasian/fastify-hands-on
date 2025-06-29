@@ -21,6 +21,13 @@ const getItemsOptions = {
 
 const postItemOptions = {
   schema: {
+    body: {
+      type: 'object',
+      properties: {
+        name: { type: 'string' }
+      },
+      required: ['name']
+    },
     response: {
       201: {
         type: 'object',
